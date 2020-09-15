@@ -1,0 +1,4 @@
+#it's your fucking .gitignore - use it wisely :D
+*.swp
+.DS_Store
+createGitIgnore.sh
