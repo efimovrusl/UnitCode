@@ -1,0 +1,10 @@
+#it's your fucking .gitignore - use it wisely :D
+*.swp
+*.o
+.DS_Store
+.vscode
+createGitIgnore.sh
+program
+libmx.a
+main.c
+file.txt
