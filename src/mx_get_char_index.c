@@ -1,9 +1,20 @@
 #include "libmx.h"
 
-int mx_get_char_index(const char* str, char c) {
-    if (str == NULL) return -2;
-    for (int i = 0; i < mx_strlen(str); i++) {
-        if (str[i] == c) return i;
+int mx_get_char_index(const char *str, char c) {
+    if (!str || !*str) {
+        return -2;
     }
-    return -1;
+    int len = mx_strlen(str);
+    int index = 0;
+    while (*str) {
+        if (*str == c) {
+            break;
+        }
+        index++;
+        str++;
+    }
+    if (index >= len) {
+        return -1;
+    }
+    return index;
 }

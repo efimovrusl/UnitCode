@@ -1,4 +1,4 @@
-#include "libmx.h"
+#include "../inc/libmx.h"
 
 char *mx_itoa(int n) {
     if (n == 0) return mx_strdup("0");
@@ -8,7 +8,7 @@ char *mx_itoa(int n) {
     char *number = mx_strnew(len);
     int counter = 0;
     for (; counter < len; counter++) {
-        number[len - counter - 1] = mx_static_abs(n % 10) + '0';
+        number[len - counter - 1] = mx_abs(n % 10) + '0';
         n /= 10;
     }
     return isNegative ? mx_strjoin("-", number) : number;

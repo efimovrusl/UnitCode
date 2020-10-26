@@ -17,8 +17,8 @@ t_list *mx_sort_list(t_list *head, bool (*cmp)(void *a, void *b)) {
         while (traverse) {
             if ((*cmp)(min->data, traverse->data)) min = traverse;
             traverse = traverse->next;
-        } /* Find minimum element from array */
-        _swap_list_nodes(start, min); // Put minimum element on starting location
+        }                              /* Find minimum element from array */
+        _swap_list_nodes(start, min);  // Put minimum element on starting location
         start = start->next;
     }
     return head;

@@ -1,15 +1,29 @@
 #include "libmx.h"
 
-char **mx_strsplit(char const *s, char c) {
-    if (s == NULL) return NULL;
-    int amountW = mx_count_words(s, c);
-    char **words = (char **)malloc((amountW + 1) * 8);
-    words[amountW] = NULL;
-    for (int i = 0, len = 0; i < amountW; i++, len = 0) {
-        while (*s && *s == c) s++;
-        while (*s && *s != c) s++, len++;
-        words[i] = mx_strnew(len);
-        mx_strncpy(words[i], s - len, len);
+char **mx_strsplit(const char *s, char c) {
+    if (!s) {
+        return NULL;
     }
-    return words;
+    char **arr = NULL;
+    int length = 0;
+    int i = 0;
+   
+    arr = (char**)malloc((mx_count_words(s, c) + 1) * sizeof(char*));
+    while ((*s) && (*s != '\0')) {
+        length = 0;
+        if (*s != c) {
+
+            const char *temp = s;
+            while (temp[length] && temp[length] != c) {
+                length++;
+            }
+            arr[i] = mx_strndup(s, length);
+            s += length;
+            i++;
+            continue;
+        }
+        s++;
+    }
+    arr[i] = NULL;
+    return arr;
 }

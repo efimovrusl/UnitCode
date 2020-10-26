@@ -2,8 +2,8 @@
 
 char *mx_strnew(const int size) {
     if (size < 0) return NULL;
-    char *newstr = (char *)malloc(size + 1);
+    char *arr = (char *)malloc((size + 1) * sizeof(char));
     for (int i = 0; i <= size; i++)
-        newstr[i] = '\0';
-    return newstr;
+        arr[i] = '\0';
+    return arr;
 }

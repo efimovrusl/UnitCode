@@ -1,34 +1,17 @@
 #include "libmx.h"
 
 int mx_get_substr_index(const char *str, const char *sub) {
-    if (str == NULL || sub == NULL) return -2;
-    char *ptr;
-    for (int i = 0; i <= mx_strlen(str) - mx_strlen(sub); i++) {
-        ptr = (char*)&str[i];
-        int k = 0;
-        for (; k < mx_strlen(sub); k++)
-            if (ptr[k] != sub[k]) {
-                ptr = NULL;
-                break;
-            }
-        if (ptr != NULL) return i;
+    int index = 0;
+    int sub_length = 0;
+    
+    if (sub && str) {
+        sub_length = mx_strlen(sub);
+        while (*str) {
+            if (mx_strncmp(str++, sub, sub_length) == 0)
+                return index;
+            index++;
+        }
+        return -1;
     }
-    return -1;
+    return -2;
 }
-
-/*
-char *mx_strstr(const char *heystack, const char *needle) {
-    if (heystack == NULL || needle == NULL) return NULL;
-    char *ptr;
-    for (int i = 0; i <= mx_strlen(heystack) - mx_strlen(needle); i++) {
-        ptr = (char*)&heystack[i];
-        for (int k = 0; k < mx_strlen(needle); k++)
-            if (ptr[k] != needle[k]) {
-                ptr = NULL;
-                break;
-            }
-        if (ptr != NULL) return ptr;
-    }
-    return NULL;
-}
-*/

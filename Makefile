@@ -58,7 +58,7 @@ clean:
 
 test: reinstall
 	printf "${VERSION}\n"
-	$(COMP) ${ARGS} main.c libmx.a -o test -I$(INCLUDE)
+	$(COMP) ${ARGS} -fsanitize=address -fno-omit-frame-pointer main.c libmx.a -o test -I$(INCLUDE)
 	echo ">-------< ${LCYAN}TEST${NC} >-------<" 
 	./test
 	rm test

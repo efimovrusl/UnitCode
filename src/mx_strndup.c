@@ -1,9 +1,13 @@
 #include "libmx.h"
 
-char *mx_strndup(const char *str, size_t n) {
-    if (str == NULL) return NULL;
-    char *buffer = mx_strnew(min(n, mx_strlen(str)));
-    for (int i = 0; i < min(n, mx_strlen(str)); i++)
-        buffer[i] = str[i];
-    return buffer;
+char *mx_strndup(const char *s1, size_t n) {
+    char *dup = NULL;
+    size_t length = (size_t)mx_strlen(s1);
+
+    if (n < length) {
+        length = n;
+    }
+    dup = mx_strnew(length);
+    mx_strncpy(dup, s1, length);
+    return dup;
 }

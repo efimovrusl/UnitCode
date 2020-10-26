@@ -1,26 +1,29 @@
 #include "libmx.h"
 
-unsigned long mx_hex_to_nbr(const char *hex) {
-    if (hex == NULL) return 0;
-    for (int i = 0; hex[i]; i++) {
-        if (!(hex[i] >= '0' && hex[i] <= '9') &&
-            !(hex[i] >= 'a' && hex[i] <= 'f') &&
-            !(hex[i] >= 'A' && hex[i] <= 'F')) return 0;
-    }
-    int len = 0;
-    unsigned long decimal = 0;
-    const char *buf = hex;
-    while (*buf++) len++;
-    unsigned long j = 0;
-    for (int i = 0; i < len; i++, j = 0) {
-        if (mx_isdigit(hex[i]))
-            j = hex[i] - '0';
-        else if (mx_islower(hex[i]))
-            j = hex[i] - 'a' + 10;
-        else
-            j = hex[i] - 'A' + 10;
-        for (int k = i; k < len - 1; k++) j *= 16;
-        decimal += j;
+unsigned long mx_hex_to_nbr(const char *hex) { 
+    if (hex == NULL) return 0;        
+    unsigned long decimal = 0, i = 0, val, len = 0;                   
+    const char *ptr = hex;
+    while(*ptr++) len++;
+    len--;  
+    while(hex[i]!='\0') {  
+        if(hex[i]>='0' && hex[i]<='9') {  
+            val = hex[i] - 48;  
+        }  
+        else if(hex[i]>='a' && hex[i]<='f') {  
+            val = hex[i] - 97 + 10;  
+        }  
+        else if(hex[i]>='A' && hex[i]<='F') {  
+            val = hex[i] - 65 + 10;  
+        } 
+        else return 0;
+        unsigned long c = 1; 
+        for (unsigned long j = 0; j < len; j++) {
+            c *= 16;
+        }
+        decimal += val * c;
+        i++;
+        len--;
     }
     return decimal;
 }
