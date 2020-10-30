@@ -1,17 +1,19 @@
 .SILENT:
+.PHONY: obj libmx
 
-
-VERSION=${RED}F${ORANGE}U${YELLOW}C${LGREEN}K${CYAN}Y${LBLUE}O${LPURPLE}U \
-${PURPLE}v${LRED}0${ORANGE}.${YELLOW}1 ${LGREEN}i${CYAN}s \
-${LBLUE}r${LPURPLE}e${PURPLE}a${LRED}d${ORANGE}y${NC}
+VERSION=${RED}p${ORANGE}a${YELLOW}t${LGREEN}h${CYAN}f${LBLUE}i${LPURPLE}n${PURPLE}d${LRED}e${ORANGE}r\
+${YELLOW}v${LGREEN}0${CYAN}.${LBLUE}1 ${LPURPLE}r${PURPLE}e${LRED}a${ORANGE}d${YELLOW}y${NC}
 
 COMP:=clang
 
 ARGS:=-std=c11 -Wall -Wextra -Werror -Wpedantic
 
-LIBNAME:=libmx.a
-
 INCLUDE:=inc
+
+LIBNAME:=libmx.a
+LIBDIR:=libmx
+LIBINCLUDE:=$(LIBDIR)/$(INCLUDE)
+
 
 CLEAN=\r                                                                              \r
 
@@ -33,38 +35,30 @@ WHITE=\033[1;37m
 # NC - no color
 NC=\033[0m
 
-all: reinstall
-	printf "${VERSION}\n"
+all: libmx reinstall
+	printf "$(VERSION)\n"
 
-install: obj
-	ar -rc $(LIBNAME) obj/*.o
-	printf "${CLEAN}Library is ${GREEN}installed${NC}\n"
+libmx:
+	if [ -f $(LIBDIR)/$(LIBNAME) ] ; then \
+	printf "" ; \
+	else \
+		make -sC $(LIBDIR) ; \
+	fi
 
-uninstall: clean
-	rm -f $(LIBNAME)
-	printf "Library is ${LPURPLE}uninstalled${NC}"
-	
-reinstall: uninstall install
-
+reinstall_libmx:
+	make reinstall -sC $(LIBDIR)
 
 obj:
 	rm -rf obj
 	mkdir obj
-	$(COMP) $(ARGS) -c src/*.c -I$(INCLUDE)
+	$(COMP)  -c src/*.c -I$(INCLUDE) -I$(LIBINCLUDE)
 	mv *.o obj/
 
-clean:
+reinstall: uninstall install
+
+install: obj
+	$(COMP)  obj/*.o -L$(LIBDIR) -lmx -o pathfinder -I$(INCLUDE) -I$(LIBINCLUDE)
+
+uninstall:
+	rm -f pathfinder
 	rm -rf obj
-
-test: reinstall
-	printf "${VERSION}\n"
-	$(COMP) ${ARGS} -fsanitize=address -fno-omit-frame-pointer main.c libmx.a -o test -I$(INCLUDE)
-	echo ">-------< ${LCYAN}TEST${NC} >-------<" 
-	./test
-	rm test
-	
-
-compile: reinstall
-	printf "${VERSION}\n"
-	$(COMP) $(ARGS) main.c libmx.a -o test -I$(INCLUDE)
-	echo "${LCYAN}test${NC} is compiled"

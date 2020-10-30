@@ -1,4 +1,4 @@
-#include "../inc/libmx.h"
+#include "libmx.h"
 
 char *mx_strdup(const char *str) {
     const char *temp = str; 
@@ -17,4 +17,3 @@ char *mx_strdup(const char *str) {
 
     return ptr;
 }
-

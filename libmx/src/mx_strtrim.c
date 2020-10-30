@@ -20,6 +20,5 @@ char *mx_strtrim(const char *str) {
     char *arr = mx_strnew(size - count_left - count_right);
     for (int i = count_left, j = 0; i <= size - 1 - count_right; i++, j++)
         arr[j] = str[i];
-
     return arr;
 }

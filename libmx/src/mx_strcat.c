@@ -1,4 +1,4 @@
-#include "../inc/libmx.h"
+#include "libmx.h"
 
 char *mx_strcat(char *restrict s1, const char *restrict s2) {
     int s1_size = mx_strlen(s1);
@@ -11,4 +11,3 @@ char *mx_strcat(char *restrict s1, const char *restrict s2) {
     s1[i++] = '\0';
     return s1;
 }
-

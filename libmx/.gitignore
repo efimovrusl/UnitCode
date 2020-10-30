@@ -1,8 +1,8 @@
 #it's your fucking .gitignore - use it wisely :D
 *.swp
 *.o
+obj/*
 .DS_Store
 .vscode
-obj
-pathfinder
-text
+createGitIgnore.sh
+libmx.a

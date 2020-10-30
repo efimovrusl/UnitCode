@@ -1,5 +1,10 @@
 #include "libmx.h"
 
+/**
+ * -2 if invalid fd
+ * -1 if EOF
+ *  0 if nothing to read
+ */
 int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
     if (buf_size == 0) return -2;
     buf_size = 1;
