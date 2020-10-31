@@ -7,7 +7,13 @@ void *mx_realloc(void *ptr, size_t size) {
     if (!ptr) {
 	    return malloc(size);
     }
-    cur_size = malloc_size(ptr);
+    #ifdef os_mac
+        cur_size = malloc_size(ptr);
+    #elif defined(os_linux)
+        cur_size = malloc_usable_size(ptr);
+    #else
+        cur_size = 0;
+    #endif
     if (size <= cur_size) {
 	    return ptr;
     }

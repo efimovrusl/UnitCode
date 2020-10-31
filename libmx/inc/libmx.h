@@ -5,7 +5,22 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <fcntl.h>
-#include <malloc/malloc.h>
+
+#if defined(__APPLE__) && defined(TARGET_OS_MAC)
+    #define os_mac
+#elif defined(__linux__) && defined(__unix__)
+    #define os_linux
+#endif 
+
+#ifdef os_mac
+    #include <malloc/malloc.h>
+#elif defined(os_linux)
+    #include <malloc.h>
+#endif
+
+#ifndef INT32_MAX
+    #define INT32_MAX 2147483647
+#endif
 
 typedef struct  s_list {
     void *data;
