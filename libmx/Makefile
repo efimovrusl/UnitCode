@@ -52,6 +52,7 @@ obj:
 	mkdir obj
 	$(COMP) $(ARGS) -c src/*.c -I$(INCLUDE)
 	mv *.o obj/
+	rm -f ./*.o
 
 clean:
 	rm -rf obj

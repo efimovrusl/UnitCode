@@ -6,7 +6,7 @@ ${YELLOW}v${LGREEN}0${CYAN}.${LBLUE}1 ${LPURPLE}r${PURPLE}e${LRED}a${ORANGE}d${Y
 
 COMP:=clang
 
-ARGS:=-std=c11 -Wall -Wextra -Werror -Wpedantic
+ARGS:=#-std=c11 -Wall -Wextra -Werror -Wpedantic
 
 INCLUDE:=inc
 
@@ -51,14 +51,18 @@ reinstall_libmx:
 obj:
 	rm -rf obj
 	mkdir obj
-	$(COMP)  -c src/*.c -I$(INCLUDE) -I$(LIBINCLUDE)
+	$(COMP) $(ARGS) -c src/*.c -I$(INCLUDE) -I$(LIBINCLUDE)
 	mv *.o obj/
 
 reinstall: uninstall install
 
 install: obj
-	$(COMP)  obj/*.o -L$(LIBDIR) -lmx -o pathfinder -I$(INCLUDE) -I$(LIBINCLUDE)
+	$(COMP) $(ARGS) obj/*.o -L$(LIBDIR) -lmx -o pathfinder -I$(INCLUDE) -I$(LIBINCLUDE)
 
 uninstall:
 	rm -f pathfinder
 	rm -rf obj
+
+clean:
+	rm -rf obj
+	make clean -sC $(LIBDIR)
