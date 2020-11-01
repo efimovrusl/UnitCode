@@ -22,10 +22,10 @@
     #define INT32_MAX 2147483647
 #endif
 
-typedef struct  s_list {
+typedef struct s_list {
     void *data;
     struct s_list *next;
-}               t_list;
+} t_list;
 
 typedef unsigned char uc_t;
 
