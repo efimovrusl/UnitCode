@@ -1,8 +1,17 @@
 #include "pathfinder.h"
 #include "stdio.h"
-bool mx_has_vertex(t_list *vertexes, char *name) {
+bool mx_has_vertex_name(t_list *vertexes, char *name) {
     while (vertexes) {
         if (mx_strcmp(((vertex *)vertexes->data)->name, name) == 0)
+            return true;
+        vertexes = vertexes->next;
+    }
+    return false;
+}
+
+bool mx_has_vertex_address(t_list *vertexes, vertex *temp) {
+    while (vertexes) {
+        if ((vertex *)(vertexes->data) == temp)
             return true;
         vertexes = vertexes->next;
     }

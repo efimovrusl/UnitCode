@@ -4,17 +4,18 @@
 
 #ifdef test
 #include "stdio.h"
-int main() {
-    t_list *list = NULL;
-    for (int i = 0; i < 5; i++)
-        mx_push_back(&list, mx_strjoin("fuck", mx_itoa(i)));
-    t_list *list2 = mx_list_cpy(list);
-    int size2 = mx_list_size(list2);
-    for (int i = 0; i < size2; i++) {
-        printf("%s\n", (char *)(list2->data));
-        list2 = list2->next;
-    }
-}
+
+// int main() {
+    // t_list *list = NULL;
+    // for (int i = 0; i < 5; i++)
+    //     mx_push_back(&list, mx_strjoin("fuck", mx_itoa(i)));
+    // t_list *list2 = mx_list_cpy(list);
+    // int size2 = mx_list_size(list2);
+    // for (int i = 0; i < size2; i++) {
+    //     printf("%s\n", (char *)(list2->data));
+    //     list2 = list2->next;
+    // }
+// }
 #endif
 
 #ifndef test
@@ -79,7 +80,7 @@ int main(int argc, char *argv[]) {
         }
         mx_strdel(&line);
         for (int i = 0; i < 2; i++) {
-            if (!mx_has_vertex(vertexes, is1_is2_len[i])) {
+            if (!mx_has_vertex_name(vertexes, is1_is2_len[i])) {
                 mx_push_back(&vertexes, mx_new_vertex(is1_is2_len[i]));
                 amount_of_islands--;
             }

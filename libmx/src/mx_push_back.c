@@ -8,6 +8,7 @@ void mx_push_back(t_list **list, void *data) {
         *list = mx_create_node(data);
         return;
     }
+    if (!data) return;
     t_list *temp = *list;
     while (temp -> next) 
         temp = temp -> next;
