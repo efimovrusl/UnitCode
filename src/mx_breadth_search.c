@@ -42,25 +42,33 @@ t_list *mx_search(vertex ***vertexes, t_list *checked, vertex *required) {
             printf("\tname: %s\n", line[i]->name);
             t_list *new_checked = mx_list_cpy(checked);
             mx_push_front(&new_checked, line[i]);
-            printf("pushed front!\n");
             t_list *res = mx_search(vertexes, new_checked, required);
+            mx_push_front(&res, line[i]);
+            printf("fuck lol! *res: %p\n", (void *)res);
             mx_multiply_and_join(&paths, res);
-            printf("multiplied and joined!\n");
             if (!primal_paths && paths)
                 primal_paths = paths;
             paths = paths->next;
         }
     }
-    mx_pop_front(&paths);
-    return paths;
+    printf("primal paths:\n");
+    mx_pop_front(&primal_paths);
+    return primal_paths;
 }
 
 void mx_multiply_and_join(t_list **paths, t_list *new_paths) {
-    printf("ARGUMENTS!!!!!!!!!!!!!!!!!!!! %p %p\n", (void *)paths, (void *)new_paths);
-    t_list *primal = (t_list *)((*paths)->data);
+    printf("multiply & join args: %p %p\n", (void *)((*paths)), (void *)new_paths);
+    t_list *primal = NULL;
+    if (*paths)
+        primal = (t_list *)((*paths)->data);
+    
+
     while (new_paths) {
         t_list *temp = mx_list_cpy(primal);
-        mx_get_back(temp)->next = new_paths;
+        if (temp)
+            mx_get_back(temp)->next = new_paths;
+        else
+            temp = new_paths;
         mx_push_back(paths, temp);
         new_paths = new_paths->next;
     }
