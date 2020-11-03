@@ -21,6 +21,7 @@ enum vertex_color {
 
 void mx_find_paths(t_list *vertexes);
 t_list **mx_path_to(vertex ***vertexes, vertex *v1, vertex *v2);
+t_list *mx_breadth_search(vertex ***vertexes, vertex *initial, vertex *required);
 
 vertex *mx_new_vertex(char *name);
 vertex *mx_get_vertex(t_list *vertexes, char *name);
@@ -29,7 +30,7 @@ void mx_show_graph(t_list *vertexes);
 void mx_free_graph(t_list **vertexes);
 
 int mx_get_id(vertex ***vertexes, vertex *curr);
-t_list *mx_breadth_search(vertex ***vertexes, vertex *initial, vertex *required);
+int mx_path_length(t_list *vertexes);
 
 bool mx_is_pos_num(char *num);
 bool mx_is_int(char *str);

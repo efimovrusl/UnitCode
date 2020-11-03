@@ -11,7 +11,7 @@ t_list *mx_breadth_search(vertex ***vertexes, vertex *initial, vertex *required)
     t_list *buf = paths;
     while (buf) {
         t_list *lol = (t_list *)(buf->data);
-        printf("path:\n");
+        printf("path: (length = %i)\n\t", mx_path_length(lol));
         while (lol) {
             printf("%s ", ((vertex *)(lol->data))->name);
             lol = lol->next;
@@ -19,10 +19,7 @@ t_list *mx_breadth_search(vertex ***vertexes, vertex *initial, vertex *required)
         printf("\n");
         buf = buf->next;
     }
-    /**
-     * @brief 
-     * @https://github.com/efimovrusl list of shortest paths
-     */
+    
     return NULL;
 }
 

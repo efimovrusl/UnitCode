@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
         close(fd);
         exit(-1);
     }
-    mx_show_graph(vertexes);
+    // mx_show_graph(vertexes);
     mx_find_paths(vertexes);
     if (buffer) free(buffer);
     mx_del_strarr(&is1_is2_len);
