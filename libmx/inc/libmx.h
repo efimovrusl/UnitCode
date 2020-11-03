@@ -6,9 +6,9 @@
 #include <stdbool.h>
 #include <fcntl.h>
 
-#if defined(__APPLE__) && defined(TARGET_OS_MAC)
+#if defined(__APPLE__) || defined(TARGET_OS_MAC)
     #define os_mac
-#elif defined(__linux__) && defined(__unix__)
+#elif defined(__linux__) || defined(__unix__)
     #define os_linux
 #endif 
 

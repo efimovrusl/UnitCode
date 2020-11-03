@@ -2,25 +2,31 @@
 
 void mx_search(vertex ***vertexes, t_list *checked, vertex *required, t_list **res_paths);
 
+bool mx_cmp_path_length(void *stack1, void *stack2) {
+    return mx_path_length(stack1) > mx_path_length(stack2);
+}
+
 // needs NULL-terminated matrix
 t_list *mx_breadth_search(vertex ***vertexes, vertex *initial, vertex *required) {
     t_list *checked = NULL;
     mx_push_front(&checked, initial);
     t_list *paths = NULL;
     mx_search(vertexes, checked, required, &paths);
-    t_list *buf = paths;
+    t_list *shortest, *prev = NULL, *buf = paths;
+    int shortest_len;
+    mx_sort_list(buf, mx_cmp_path_length);
+    shortest_len = mx_path_length(buf->data);
     while (buf) {
-        t_list *lol = (t_list *)(buf->data);
-        printf("path: (length = %i)\n\t", mx_path_length(lol));
-        while (lol) {
-            printf("%s ", ((vertex *)(lol->data))->name);
-            lol = lol->next;
+        t_list *curr_stack = (t_list *)(buf->data);
+        if (mx_path_length(curr_stack) != shortest_len) {
+            if (prev) prev->next = NULL;
+            mx_clear_list(&buf);
+            break;
         }
-        printf("\n");
+        prev = buf;
         buf = buf->next;
     }
-    
-    return NULL;
+    return paths;
 }
 
 void mx_search(vertex ***vertexes, t_list *checked, vertex *required, t_list **res_paths) {
@@ -28,9 +34,7 @@ void mx_search(vertex ***vertexes, t_list *checked, vertex *required, t_list **r
         mx_push_front(res_paths, checked);
         return;
     }
-    t_list *paths = NULL;
-    int line_id = mx_get_id(vertexes, (vertex *)(checked->data));
-    vertex **line = vertexes[line_id];
+    vertex **line = vertexes[mx_get_id(vertexes, (vertex *)(checked->data))];
     for (int i = 1; (unsigned long)(void *)line[i] > (unsigned long)0xff; i++) {
         if (!mx_has_vertex_address(checked, line[i])) {
             t_list *new_checked = mx_list_cpy(checked);
@@ -38,6 +42,6 @@ void mx_search(vertex ***vertexes, t_list *checked, vertex *required, t_list **r
             mx_search(vertexes, new_checked, required, res_paths);
             if ((vertex *)(new_checked->data) != required)
                 mx_clear_list(&new_checked);
-        }   
+        }
     }
 }
