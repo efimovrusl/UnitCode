@@ -117,7 +117,6 @@ int main(int argc, char *argv[]) {
         close(fd);
         exit(-1);
     }
-    // mx_show_graph(vertexes);
     t_list *paths = mx_find_paths(vertexes);
     mx_show_paths(paths);
     if (buffer) free(buffer);

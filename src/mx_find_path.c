@@ -61,14 +61,12 @@ void mx_show_paths(t_list *routes) {
                     edges = edges->next;
                 }
             }
-
             mx_printstr(" = ");
             mx_printint(len);
             mx_printstr("\n");
         }
         for (int i = 0; i < 40; i++) mx_printchar('=');
         mx_printchar('\n');
-
         routes = routes->next;
     }
 }
